@@ -1,12 +1,14 @@
 import React from 'react';
+import Form from './components/Form';
+import Logo from './components/Logo';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Tryunfo</h1>
-      </div>
-
+      <>
+        <Logo />
+        <Form />
+      </>
     );
   }
 }
