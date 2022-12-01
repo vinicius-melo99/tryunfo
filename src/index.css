@@ -25,3 +25,17 @@ body {
 .main-logo {
   width: 250px;
 }
+
+.main-container {
+  display: flex;
+  width: 100%;
+}
+
+.card-informations {
+  width: 50%;
+  padding: 40px;
+}
+
+formContainer {
+  width: 50%;
+}
