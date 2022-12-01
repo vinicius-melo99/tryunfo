@@ -7,6 +7,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.clearInformations = this.clearInformations.bind(this);
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -17,6 +19,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      cardList: [],
     };
   }
 
@@ -29,6 +32,42 @@ class App extends React.Component {
     this.setState({
       [name]: value,
     }, () => this.validadeButton());
+  }
+
+  onSaveButtonClick(e) {
+    e.preventDefault();
+    const {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardRare,
+    } = this.state;
+
+    const info = { cardName,
+      cardDescription,
+      cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardRare };
+    this.setState((prevInfo) => ({
+      cardList: [...prevInfo.cardList, info],
+    }), () => this.clearInformations());
+  }
+
+  clearInformations() {
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardRare: 'normal',
+    });
   }
 
   validadeButton() {
@@ -50,7 +89,7 @@ class App extends React.Component {
     const condition3 = (Number(cardAttr1) >= 0 && Number(cardAttr1) <= number90)
     && (Number(cardAttr2) >= 0 && Number(cardAttr2) <= number90)
     && (Number(cardAttr3) >= 0 && Number(cardAttr3) <= number90);
-    
+
     this.setState({
       isSaveButtonDisabled: !(condition1 && condition2 && condition3),
     });
@@ -63,6 +102,7 @@ class App extends React.Component {
         <section className="main-container">
           <Form
             onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
             { ...this.state }
           />
           <Card { ...this.state } />
