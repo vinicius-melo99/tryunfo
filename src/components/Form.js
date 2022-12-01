@@ -116,8 +116,9 @@ class Form extends Component {
               data-testid="rare-input"
               value={ cardRare }
               onChange={ onInputChange }
+              defaultValue="normal"
             >
-              <option selected>normal</option>
+              <option>normal</option>
               <option>raro</option>
               <option>muito raro</option>
             </select>
@@ -159,7 +160,7 @@ Form.propTypes = {
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
   //   hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
