@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
+import CardList from './components/CardList';
 import Form from './components/Form';
 import Logo from './components/Logo';
 
@@ -41,13 +42,12 @@ class App extends React.Component {
       cardName, cardDescription,
       cardImage, cardAttr1,
       cardAttr2, cardAttr3,
-      cardRare,
+      cardRare, cardTrunfo,
     } = this.state;
-    let { hasTrunfo, cardTrunfo } = this.state;
+    let { hasTrunfo } = this.state;
 
     if (!hasTrunfo && cardTrunfo) {
       hasTrunfo = true;
-      cardTrunfo = false;
     }
 
     const info = {
@@ -58,11 +58,12 @@ class App extends React.Component {
       cardAttr2,
       cardAttr3,
       cardRare,
+      cardTrunfo,
     };
     this.setState((prevInfo) => ({
       cardList: [...prevInfo.cardList, info],
       hasTrunfo,
-      cardTrunfo,
+      cardTrunfo: false,
     }), () => this.clearInformations());
   }
 
@@ -104,6 +105,8 @@ class App extends React.Component {
   }
 
   render() {
+    const { cardList } = this.state;
+    // console.log(cardList);
     return (
       <>
         <Logo />
@@ -115,6 +118,7 @@ class App extends React.Component {
           />
           <Card { ...this.state } />
         </section>
+        {cardList.map((card) => <CardList key={ card.cardName } { ...card } />)}
       </>
     );
   }
