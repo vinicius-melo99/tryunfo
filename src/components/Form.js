@@ -19,6 +19,7 @@ class Form extends Component {
       onSaveButtonClick,
       nameFilter,
       filterCard,
+      cardRareFilter,
     } = this.props;
 
     return (
@@ -141,6 +142,7 @@ class Form extends Component {
           </button>
         </form>
         <section>
+          <span>Filtros: </span>
           <input
             data-testid="name-filter"
             name="nameFilter"
@@ -148,6 +150,17 @@ class Form extends Component {
             value={ nameFilter }
             onChange={ filterCard }
           />
+          <select
+            name="cardRareFilter"
+            data-testid="rare-filter"
+            value={ cardRareFilter }
+            onChange={ filterCard }
+          >
+            <option>todas</option>
+            <option>normal</option>
+            <option>raro</option>
+            <option>muito raro</option>
+          </select>
         </section>
       </section>
     );
@@ -169,6 +182,7 @@ Form.propTypes = {
   onSaveButtonClick: PropTypes.func.isRequired,
   nameFilter: PropTypes.string.isRequired,
   filterCard: PropTypes.func.isRequired,
+  cardRareFilter: PropTypes.string.isRequired,
 };
 
 export default Form;

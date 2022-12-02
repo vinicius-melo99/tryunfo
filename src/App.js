@@ -26,6 +26,7 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       cardList: [],
       nameFilter: '',
+      cardRareFilter: 'todas',
     };
   }
 
@@ -137,7 +138,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { cardList, nameFilter } = this.state;
+    const {
+      cardList,
+      nameFilter,
+    } = this.state;
+
+    let { cardRareFilter } = this.state;
+
+    if (cardRareFilter === 'todas') cardRareFilter = '';
     // console.log(cardList);
     return (
       <>
@@ -153,7 +161,9 @@ class App extends React.Component {
         </section>
         {cardList.length !== 0
           ? cardList
-            .filter(({ cardName }) => (cardName.includes(nameFilter)))
+            .filter(({ cardName, cardRare }) => (cardName.includes(nameFilter)
+              && cardRareFilter === '' ? cardRare.includes(cardRareFilter)
+              : cardRareFilter === cardRare))
             .map((card) => (<CardList
               key={ card.cardName }
               { ...card }
