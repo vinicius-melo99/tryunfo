@@ -174,7 +174,7 @@ class App extends React.Component {
           ? cardList
             .filter(({ cardName, cardRare }) => (cardName.includes(nameFilter)
               && (cardRareFilter === '' ? cardRare.includes(cardRareFilter)
-              : cardRareFilter === cardRare)))
+                : cardRareFilter === cardRare)))
             .filter(({ cardTrunfo }) => (trunfoFilterChecked
               ? trunfoFilterChecked === cardTrunfo
               : (cardTrunfo === true || cardTrunfo === false)))
