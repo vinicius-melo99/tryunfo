@@ -17,6 +17,8 @@ class Form extends Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
+      nameFilter,
+      filterCard,
     } = this.props;
 
     return (
@@ -138,6 +140,15 @@ class Form extends Component {
             Salvar
           </button>
         </form>
+        <section>
+          <input
+            data-testid="name-filter"
+            name="nameFilter"
+            type="text"
+            value={ nameFilter }
+            onChange={ filterCard }
+          />
+        </section>
       </section>
     );
   }
@@ -156,6 +167,8 @@ Form.propTypes = {
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
+  nameFilter: PropTypes.string.isRequired,
+  filterCard: PropTypes.func.isRequired,
 };
 
 export default Form;

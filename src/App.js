@@ -12,6 +12,7 @@ class App extends React.Component {
     this.clearInformations = this.clearInformations.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
+    this.filterCard = this.filterCard.bind(this);
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -24,6 +25,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       cardList: [],
+      nameFilter: '',
     };
   }
 
@@ -104,8 +106,8 @@ class App extends React.Component {
   }
 
   deleteCard({ target: { name } }) {
-    const { cardList } = this.state;
     this.checkTrunfo(name);
+    const { cardList } = this.state;
     const newList = cardList.filter(({ cardName }) => name !== cardName);
 
     this.setState({
@@ -128,8 +130,14 @@ class App extends React.Component {
     }
   }
 
+  filterCard({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
-    const { cardList } = this.state;
+    const { cardList, nameFilter } = this.state;
     // console.log(cardList);
     return (
       <>
@@ -138,12 +146,14 @@ class App extends React.Component {
           <Form
             onInputChange={ this.onInputChange }
             onSaveButtonClick={ this.onSaveButtonClick }
+            filterCard={ this.filterCard }
             { ...this.state }
           />
           <Card { ...this.state } />
         </section>
         {cardList.length !== 0
           ? cardList
+            .filter(({ cardName }) => (cardName.includes(nameFilter)))
             .map((card) => (<CardList
               key={ card.cardName }
               { ...card }
