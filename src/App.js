@@ -27,6 +27,7 @@ class App extends React.Component {
       cardList: [],
       nameFilter: '',
       cardRareFilter: 'todas',
+      trunfoFilterChecked: false,
     };
   }
 
@@ -132,8 +133,17 @@ class App extends React.Component {
   }
 
   filterCard({ target: { name, value } }) {
+    let { trunfoFilterChecked } = this.state;
+
+    if (name === 'trunfoFilterChecked') {
+      if (trunfoFilterChecked) trunfoFilterChecked = false;
+      else {
+        trunfoFilterChecked = true;
+      }
+    }
     this.setState({
       [name]: value,
+      trunfoFilterChecked,
     });
   }
 
@@ -141,6 +151,7 @@ class App extends React.Component {
     const {
       cardList,
       nameFilter,
+      trunfoFilterChecked,
     } = this.state;
 
     let { cardRareFilter } = this.state;
@@ -162,8 +173,11 @@ class App extends React.Component {
         {cardList.length !== 0
           ? cardList
             .filter(({ cardName, cardRare }) => (cardName.includes(nameFilter)
-              && cardRareFilter === '' ? cardRare.includes(cardRareFilter)
-              : cardRareFilter === cardRare))
+              && (cardRareFilter === '' ? cardRare.includes(cardRareFilter)
+              : cardRareFilter === cardRare)))
+            .filter(({ cardTrunfo }) => (trunfoFilterChecked
+              ? trunfoFilterChecked === cardTrunfo
+              : (cardTrunfo === true || cardTrunfo === false)))
             .map((card) => (<CardList
               key={ card.cardName }
               { ...card }

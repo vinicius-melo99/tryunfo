@@ -20,6 +20,7 @@ class Form extends Component {
       nameFilter,
       filterCard,
       cardRareFilter,
+      trunfoFilterChecked,
     } = this.props;
 
     return (
@@ -148,6 +149,7 @@ class Form extends Component {
             name="nameFilter"
             type="text"
             value={ nameFilter }
+            disabled={ trunfoFilterChecked }
             onChange={ filterCard }
           />
           <select
@@ -155,12 +157,20 @@ class Form extends Component {
             data-testid="rare-filter"
             value={ cardRareFilter }
             onChange={ filterCard }
+            disabled={ trunfoFilterChecked }
           >
             <option>todas</option>
             <option>normal</option>
             <option>raro</option>
             <option>muito raro</option>
           </select>
+          <input
+            data-testid="trunfo-filter"
+            type="checkbox"
+            name="trunfoFilterChecked"
+            checked={ trunfoFilterChecked }
+            onChange={ filterCard }
+          />
         </section>
       </section>
     );
@@ -183,6 +193,7 @@ Form.propTypes = {
   nameFilter: PropTypes.string.isRequired,
   filterCard: PropTypes.func.isRequired,
   cardRareFilter: PropTypes.string.isRequired,
+  trunfoFilterChecked: PropTypes.bool.isRequired,
 };
 
 export default Form;
