@@ -10,6 +10,8 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.clearInformations = this.clearInformations.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
+    this.checkTrunfo = this.checkTrunfo.bind(this);
     this.state = {
       cardName: '',
       cardDescription: '',
@@ -81,12 +83,9 @@ class App extends React.Component {
 
   validadeButton() {
     const {
-      cardName,
-      cardDescription,
-      cardImage,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
+      cardName, cardDescription,
+      cardImage, cardAttr1,
+      cardAttr2, cardAttr3,
     } = this.state;
     const number210 = 210;
     const number90 = 90;
@@ -104,6 +103,31 @@ class App extends React.Component {
     });
   }
 
+  deleteCard({ target: { name } }) {
+    const { cardList } = this.state;
+    this.checkTrunfo(name);
+    const newList = cardList.filter(({ cardName }) => name !== cardName);
+
+    this.setState({
+      cardList: newList,
+    });
+  }
+
+  checkTrunfo(name) {
+    const { cardList } = this.state;
+    let { hasTrunfo } = this.state;
+    if (hasTrunfo) {
+      const card = cardList.find(({ cardName }) => cardName === name);
+      const { cardTrunfo } = card;
+      if (cardTrunfo) {
+        hasTrunfo = false;
+      }
+      this.setState({
+        hasTrunfo,
+      });
+    }
+  }
+
   render() {
     const { cardList } = this.state;
     // console.log(cardList);
@@ -118,7 +142,14 @@ class App extends React.Component {
           />
           <Card { ...this.state } />
         </section>
-        {cardList.map((card) => <CardList key={ card.cardName } { ...card } />)}
+        {cardList.length !== 0
+          ? cardList
+            .map((card) => (<CardList
+              key={ card.cardName }
+              { ...card }
+              deleteCard={ this.deleteCard }
+            />))
+          : ''}
       </>
     );
   }

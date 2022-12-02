@@ -13,6 +13,7 @@ class CardList extends React.Component {
       cardAttr3,
       cardRare,
       cardTrunfo,
+      deleteCard,
     } = this.props;
     const card = {
       cardName,
@@ -27,6 +28,14 @@ class CardList extends React.Component {
     return (
       <section>
         <Card { ...card } />
+        <button
+          name={ cardName }
+          type="submit"
+          data-testid="delete-button"
+          onClick={ deleteCard }
+        >
+          Excluir
+        </button>
       </section>
     );
   }
@@ -41,6 +50,7 @@ CardList.propTypes = {
   cardName: PropTypes.string,
   cardRare: PropTypes.string,
   cardTrunfo: PropTypes.bool,
+  deleteCard: PropTypes.func.isRequired,
 };
 
 CardList.defaultProps = {
